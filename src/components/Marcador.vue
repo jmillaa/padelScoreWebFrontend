@@ -19,7 +19,7 @@ function retroceder() {
 
 async function cargarMarcador() {
   try {
-    const response = await axios.get(`${urlServidor}/partido/${props.id}`)
+    const response = await axios.get(`${urlServidor}/partido/${id}`) // 🔧 aquí
     const marcador = response.data?.marcador
 
     if (
@@ -31,7 +31,7 @@ async function cargarMarcador() {
       puntos.value = marcador.puntos.map(p => p.toString())
       juegos.value = marcador.juegosSetActual
       sets.value = marcador.setsGanados
-      error.value = null // Borra el error si todo va bien
+      error.value = null
     } else {
       throw new Error('Marcador incompleto')
     }
@@ -40,6 +40,7 @@ async function cargarMarcador() {
     error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
   }
 }
+
 
 
 onMounted(() => {
