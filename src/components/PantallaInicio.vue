@@ -29,8 +29,6 @@ async function buscar() {
 }
 </script>
 
-</script>
-
 <template>
   <!-- Titulo de la pagina PADELSCORE -->
   <div class="h-screen flex flex-col justify-center items-center bg-[#383535] px-4">
