@@ -17,19 +17,17 @@ function retroceder() {
   router.push('/')
 }
 
-async function cargarMarcador() {
-  try {
-    const response = await axios.get(`${urlServidor}/partido/${props.id}`)
-    const marcador = response.data.marcador
-
-    puntos.value = marcador.puntos.map(p => p.toString())
-    juegos.value = marcador.juegosSetActual
-    sets.value = marcador.setsGanados
-    error.value = null
-  } catch (err) {
-    console.error('Error al cargar marcador:', err)
-    error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
-  }
+async function cargarMarcador(){
+    try{
+        const response = await axios.get(`${urlServidor}/partido/${id}`)
+        const marcador = response.data.marcador
+        puntos.value = marcador.puntos.map(p => p.toString()) // Aquí la corrección
+        juegos.value = marcador.juegosSetActual
+        sets.value = marcador.setsGanados
+    }
+    catch(err){
+        error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
+    }
 }
 
 onMounted(() => {
