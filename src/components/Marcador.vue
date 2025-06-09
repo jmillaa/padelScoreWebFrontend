@@ -46,7 +46,7 @@ async function cargarMarcador() {
 
 onMounted(() => {
   cargarMarcador()
-  setInterval(cargarMarcador, 5000)
+  setInterval(cargarMarcador, 3000)
 })
 </script>
 
