@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-const props = defineProps(['id'])
+const { id } = defineProps(['id']) // ✅ desestructuración directa
 const router = useRouter()
 
 const puntos = ref(['0', '0'])
@@ -17,17 +17,16 @@ function retroceder() {
   router.push('/')
 }
 
-async function cargarMarcador(){
-    try{
-        const response = await axios.get(`${urlServidor}/partido/${id}`)
-        const marcador = response.data.marcador
-        puntos.value = marcador.puntos.map(p => p.toString()) // Aquí la corrección
-        juegos.value = marcador.juegosSetActual
-        sets.value = marcador.setsGanados
-    }
-    catch(err){
-        error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
-    }
+async function cargarMarcador() {
+  try {
+    const response = await axios.get(`${urlServidor}/partido/${id}`)
+    const marcador = response.data.marcador
+    puntos.value = marcador.puntos.map(p => p.toString()) // 👈 obligatorio para robustez
+    juegos.value = marcador.juegosSetActual
+    sets.value = marcador.setsGanados
+  } catch (err) {
+    error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
+  }
 }
 
 onMounted(() => {
