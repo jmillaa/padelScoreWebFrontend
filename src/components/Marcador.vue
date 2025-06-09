@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-defineProps(['id'])
+const props = defineProps(['id'])
 const router = useRouter()
 
 const puntos = ref(['0', '0'])
@@ -13,28 +13,28 @@ const error = ref(null)
 
 const urlServidor = 'https://padelscore-web-server.onrender.com'
 
-// Función para volver al inicio
 function retroceder() {
   router.push('/')
 }
 
-// Función que carga los datos desde la base de datos al frontal
 async function cargarMarcador() {
   try {
-    const response = await axios.get(`${urlServidor}/partido/${id}`)
+    const response = await axios.get(`${urlServidor}/partido/${props.id}`)
     const marcador = response.data.marcador
-    puntos.value = marcador.puntos
+
+    puntos.value = marcador.puntos.map(p => p.toString())
     juegos.value = marcador.juegosSetActual
     sets.value = marcador.setsGanados
-    error.value = null // Limpio el error si todo va bien
+    error.value = null
   } catch (err) {
+    console.error('Error al cargar marcador:', err)
     error.value = 'No se pudo cargar el marcador. Comprueba el ID.'
   }
 }
 
 onMounted(() => {
   cargarMarcador()
-  setInterval(cargarMarcador, 5000) // Actualiza cada 5 segundos
+  setInterval(cargarMarcador, 5000)
 })
 </script>
 
