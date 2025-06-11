@@ -116,7 +116,7 @@ onMounted(() => {
 
       <button
         @click="router.push(`/login-arbitro?id=${id}`)"
-        class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+        class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
       >
         ¿Eres el árbitro?
       </button>
