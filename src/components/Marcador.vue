@@ -105,34 +105,24 @@ onMounted(() => {
       </table>
     </div>
 
-    <!-- Botón volver -->
-    <button
-      v-if="!error"
-      @click="retroceder"
-      class="justify-center mt-8 text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
-    >
-      Inicio
-    </button>
+    <!-- Botones alineados horizontalmente -->
+<div v-if="!error" class="flex flex-row gap-4 mt-8">
+  <!-- Botón volver -->
+  <button
+    @click="retroceder"
+    class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
+  >
+    Inicio
+  </button>
 
-    <!-- Botón de acceso árbitro -->
-      <button
-      v-if="!error"
-      @click="router.push(`/login-arbitro?id=${id}`)"
-      class="mt-4 text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
-    >
-      ¿Eres el árbitro?
-    </button>
-
-
-    <!-- Botón volver si hay error -->
-    <button
-      v-if="error"
-      @click="retroceder"
-      class="mt-4 text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
-    >
-      Volver al inicio
-    </button>
-  </div>
+  <!-- Botón de acceso árbitro -->
+  <button
+    @click="router.push(`/login-arbitro?id=${id}`)"
+    class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+  >
+    ¿Eres el árbitro?
+  </button>
+</div>
 </template>
 
 <style>
