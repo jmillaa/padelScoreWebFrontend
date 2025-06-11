@@ -5,10 +5,11 @@ import axios from 'axios'
 
 const route = useRoute()
 const id = route.query.id
-const error = ref(null)
+
 const puntos = ref(['0', '0'])
 const juegos = ref(['0', '0'])
 const sets = ref(['0', '0'])
+const error = ref(null)
 
 const urlServidor = 'https://padelscore-web-server.onrender.com'
 
@@ -30,21 +31,74 @@ async function cargarMarcador() {
   }
 }
 
+async function guardarCambios() {
+  try {
+    const payload = {
+      marcador: {
+        puntos: puntos.value,
+        juegosSetActual: juegos.value,
+        setsGanados: sets.value
+      }
+    }
+
+    await axios.put(`${urlServidor}/partido/${id}`, payload)
+    alert('Marcador actualizado correctamente')
+  } catch (err) {
+    console.error(err)
+    alert('Error al guardar el marcador')
+  }
+}
+
 onMounted(() => {
   cargarMarcador()
 })
 </script>
 
 <template>
-  <div class="text-white">
-    <h1 class="text-3xl font-bold">Panel de Árbitro</h1>
+  <div class="min-h-screen bg-[#383535] text-white flex flex-col items-center justify-center px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Panel de Árbitro</h1>
 
     <div v-if="error" class="text-red-400 mt-4">
       {{ error }}
     </div>
 
-    <div v-else>
-      <!-- aquí va tu formulario o controles para editar el marcador -->
+    <div v-else class="w-full max-w-md flex flex-col gap-4">
+      <!-- Puntos -->
+      <div class="flex justify-between items-center">
+        <label>Puntos Equipo 1:</label>
+        <input v-model="puntos[0]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+      <div class="flex justify-between items-center">
+        <label>Puntos Equipo 2:</label>
+        <input v-model="puntos[1]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+
+      <!-- Juegos -->
+      <div class="flex justify-between items-center">
+        <label>Juegos Equipo 1:</label>
+        <input v-model="juegos[0]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+      <div class="flex justify-between items-center">
+        <label>Juegos Equipo 2:</label>
+        <input v-model="juegos[1]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+
+      <!-- Sets -->
+      <div class="flex justify-between items-center">
+        <label>Sets Equipo 1:</label>
+        <input v-model="sets[0]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+      <div class="flex justify-between items-center">
+        <label>Sets Equipo 2:</label>
+        <input v-model="sets[1]" class="text-black px-2 py-1 rounded w-24" />
+      </div>
+
+      <button
+        @click="guardarCambios"
+        class="mt-6 bg-[#5ADF14] text-black font-bold py-2 px-4 rounded hover:bg-white"
+      >
+        Guardar cambios
+      </button>
     </div>
   </div>
 </template>
