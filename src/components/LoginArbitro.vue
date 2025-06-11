@@ -1,50 +1,34 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const usuario = ref('')
+const contrasena = ref('')
+const error = ref('')
 const route = useRoute()
-const id = route.query.id
-const error = ref(null)
-const puntos = ref(['0', '0'])
-const juegos = ref(['0', '0'])
-const sets = ref(['0', '0'])
+const router = useRouter()
 
-const urlServidor = 'https://padelscore-web-server.onrender.com'
-
-async function cargarMarcador() {
-  try {
-    const response = await axios.get(`${urlServidor}/partido/${id}`)
-    if (!response.data || !response.data.marcador) {
-      throw new Error('Partido no encontrado')
-    }
-
-    const marcador = response.data.marcador
-    puntos.value = marcador.puntos.map(p => p.toString())
-    juegos.value = marcador.juegosSetActual
-    sets.value = marcador.setsGanados
-    error.value = null
-  } catch (err) {
-    console.error(err)
-    error.value = 'No se encontró ningún partido con ese ID.'
+function login() {
+  if (usuario.value === 'admin' && contrasena.value === 'padel123') {
+    sessionStorage.setItem('arbitroLogeado', 'true')
+    router.push(`/panel-arbitro?id=${route.query.id}`)
+  } else {
+    error.value = 'Usuario o contraseña incorrectos.'
   }
 }
-
-onMounted(() => {
-  cargarMarcador()
-})
 </script>
 
 <template>
-  <div class="text-white">
-    <h1 class="text-3xl font-bold">Panel de Árbitro</h1>
+  <div class="h-screen flex flex-col items-center justify-center bg-[#383535] text-white px-4">
+    <h2 class="text-3xl font-bold mb-6">Acceso árbitro</h2>
 
-    <div v-if="error" class="text-red-400 mt-4">
-      {{ error }}
-    </div>
-
-    <div v-else>
-      <!-- aquí va tu formulario o controles para editar el marcador -->
+    <div class="flex flex-col gap-4 w-full max-w-xs">
+      <input v-model="usuario" placeholder="Usuario" class="px-4 py-2 rounded bg-[#4a4a4a] text-white" />
+      <input v-model="contrasena" type="password" placeholder="Contraseña" class="px-4 py-2 rounded bg-[#4a4a4a] text-white" />
+      <button @click="login" class="bg-[#5ADF14] hover:bg-white hover:text-black text-black font-bold py-2 px-4 rounded">
+        Entrar
+      </button>
+      <p v-if="error" class="text-red-400">{{ error }}</p>
     </div>
   </div>
 </template>
