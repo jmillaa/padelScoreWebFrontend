@@ -95,7 +95,7 @@ onMounted(() => {
 
       <button
         @click="guardarCambios"
-        class="mt-6 bg-[##534E4E] text-white font-bold py-2 px-4 rounded hover:bg-[#5ADF14]"
+        class="mt-6 bg-[#534E4E] text-white font-bold py-2 px-4 rounded hover:bg-[#5ADF14]"
       >
         Guardar cambios
       </button>
