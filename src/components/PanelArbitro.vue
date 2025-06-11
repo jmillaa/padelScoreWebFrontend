@@ -50,7 +50,12 @@ async function guardarCambios() {
 }
 
 onMounted(() => {
-  cargarMarcador()
+  const estaLogeado = sessionStorage.getItem('arbitroLogeado') === 'true'
+  if (!estaLogeado) {
+    window.location.href = `/login-arbitro?id=${id}`
+  } else {
+    cargarMarcador()
+  }
 })
 </script>
 
