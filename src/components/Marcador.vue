@@ -105,24 +105,22 @@ onMounted(() => {
       </table>
     </div>
 
-    <!-- Botones alineados horizontalmente -->
-<div v-if="!error" class="flex flex-row gap-4 mt-8">
-  <!-- Botón volver -->
-  <button
-    @click="retroceder"
-    class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
-  >
-    Inicio
-  </button>
+    <!-- Botones alineados -->
+  <div v-if="!error" class="flex flex-row gap-4 mt-8">
+    <button
+      @click="retroceder"
+      class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
+    >
+      Inicio
+    </button>
 
-  <!-- Botón de acceso árbitro -->
-  <button
-    @click="router.push(`/login-arbitro?id=${id}`)"
-    class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
-  >
-    ¿Eres el árbitro?
-  </button>
-</div>
+    <button
+      @click="router.push(`/login-arbitro?id=${id}`)"
+      class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+    >
+      ¿Eres el árbitro?
+    </button>
+  </div>
 </template>
 
 <style>
