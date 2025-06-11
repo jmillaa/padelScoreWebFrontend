@@ -106,19 +106,29 @@ onMounted(() => {
     </div>
 
     <!-- Botones alineados -->
-  <div v-if="!error" class="flex flex-row gap-4 mt-8">
-    <button
-      @click="retroceder"
-      class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
-    >
-      Inicio
-    </button>
+    <div v-if="!error" class="flex flex-row gap-4 mt-8">
+      <button
+        @click="retroceder"
+        class="text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
+      >
+        Inicio
+      </button>
 
+      <button
+        @click="router.push(`/login-arbitro?id=${id}`)"
+        class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+      >
+        ¿Eres el árbitro?
+      </button>
+    </div>
+
+    <!-- Botón volver si hay error -->
     <button
-      @click="router.push(`/login-arbitro?id=${id}`)"
-      class="text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+      v-if="error"
+      @click="retroceder"
+      class="mt-4 text-white font-semibold bg-[#534E4E] px-4 py-2 rounded-full hover:bg-[#5ADF14]"
     >
-      ¿Eres el árbitro?
+      Volver al inicio
     </button>
   </div>
 </template>
