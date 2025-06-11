@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-const { id } = defineProps(['id']) // ✅ desestructuración directa
+const { id } = defineProps(['id']) 
 const router = useRouter()
 
 const puntos = ref(['0', '0'])
@@ -113,6 +113,16 @@ onMounted(() => {
     >
       Inicio
     </button>
+
+    <!-- Botón de acceso árbitro -->
+      <button
+      v-if="!error"
+      @click="router.push(`/login-arbitro?id=${id}`)"
+      class="mt-4 text-white font-semibold bg-[#5ADF14] px-4 py-2 rounded-full hover:bg-white hover:text-black"
+    >
+      ¿Eres el árbitro?
+    </button>
+
 
     <!-- Botón volver si hay error -->
     <button
