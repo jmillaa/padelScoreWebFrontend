@@ -25,7 +25,7 @@ function login() {
     <div class="flex flex-col gap-4 w-full max-w-xs">
       <input v-model="usuario" placeholder="Usuario" class="px-4 py-2 rounded bg-[#4a4a4a] text-white" />
       <input v-model="contrasena" type="password" placeholder="Contraseña" class="px-4 py-2 rounded bg-[#4a4a4a] text-white" />
-      <button @click="login" class="bg-[#5ADF14] hover:bg-white hover:text-black text-black font-bold py-2 px-4 rounded">
+      <button @click="login" class="bg-[#534E4E] hover:bg-[#5ADF14] text-white font-bold py-2 px-4 rounded">
         Entrar
       </button>
       <p v-if="error" class="text-red-400">{{ error }}</p>
