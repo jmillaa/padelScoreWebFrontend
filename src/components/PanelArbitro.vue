@@ -55,6 +55,7 @@ onMounted(() => {
     window.location.href = `/login-arbitro?id=${id}`
   } else {
     cargarMarcador()
+    setInterval(cargarMarcador, 3000)
   }
 })
 </script>
