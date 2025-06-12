@@ -32,10 +32,26 @@ async function cargarMarcador() {
 }
 
 async function guardarCambios() {
+  const esTiebreak = juegos.value[0] === 6 && juegos.value[1] === 6
+  const puntosValidosNormales = ['0', '15', '30', '40', 'AD']
+  const puntosValidosTiebreak = Array.from({ length: 21 }, (_, i) => i.toString())
+
+  const puntosA = puntos.value[0].toString()
+  const puntosB = puntos.value[1].toString()
+
+  const puntosSonValidos = esTiebreak
+    ? puntosValidosTiebreak.includes(puntosA) && puntosValidosTiebreak.includes(puntosB)
+    : puntosValidosNormales.includes(puntosA) && puntosValidosNormales.includes(puntosB)
+
+  if (!puntosSonValidos) {
+    alert(`Puntos inválidos. ${esTiebreak ? 'En tiebreak deben ser números del 0 al 20.' : 'Solo se permiten: 0, 15, 30, 40, AD'}`)
+    return
+  }
+
   try {
     const payload = {
       marcador: {
-        puntos: puntos.value,
+        puntos: [puntosA, puntosB],
         juegosSetActual: juegos.value,
         setsGanados: sets.value
       }
@@ -48,6 +64,7 @@ async function guardarCambios() {
     alert('Error al guardar el marcador')
   }
 }
+
 
 onMounted(() => {
   const estaLogeado = sessionStorage.getItem('arbitroLogeado') === 'true'
